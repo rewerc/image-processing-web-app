@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>IMGP</title>
+</head>
+<style>
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: Arial;
+    background:url('{{ url_for("static", filename="images/dark_city_pink.jpg") }}');
+    background-color: #3cd4cdbe;
+    background-blend-mode: multiply;
+    opacity: 8;
+  }
+
+  /* Style the top navigation bar */
+  .topnav {
+    overflow: hidden;
+    background-color: #0f0f0fcc;
+    padding: 10px;
+  }
+
+  /* Style the topnav links */
+  .topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 19px;
+  }
+
+  /* Change color on hover */
+  .topnav a:hover {
+    color: rgb(255, 255, 255);
+    border-bottom: 3px solid rgba(163, 220, 253, 0.822);
+  }
+
+  .navright {
+    float: right;
+    width: 50%;
+    text-align: right;
+  }
+
+  #download {
+    width: auto;
+    font-family: arial;
+    font-size: 15px;
+    color: black;
+    padding: 10px 10px;
+    display: inline-block;
+  }
+
+  .button {
+    display: inline-block;
+    position: relative;
+    background: linear-gradient(to right, #00ffff 0%, #66ff99 100%);
+    border: none;
+    font-size: 15px;
+    color: #000000;
+    margin: 5px;
+    padding: 9px 19px 9px 19px;
+    margin-right: 11px;
+    width: auto;
+    text-align: center;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  .button:hover {
+    opacity: 0.9;
+  }
+
+  .button:after {
+    content: "";
+    background: #46444b88;
+    display: block;
+    position: absolute;
+    padding-top: 300%;
+    padding-left: 350%;
+    margin-left: -20px !important;
+    margin-top: -120%;
+    opacity: 0;
+    transition: all 1.5s;
+  }
+
+  .button:active:after {
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+    transition: 0s
+  }
+
+  /* Create two unequal columns that floats next to each other */
+  /* Left column */
+  .leftcolumn {
+    float: left;
+    width: 25%;
+    padding-left: 15px;
+    padding-bottom: 20px;
+  }
+
+  /* Right column */
+  .rightcolumn {
+    float: left;
+    width: 75%;
+    height: 520px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+  }
+
+  /* Fake image */
+  .fakeimg {
+    background-color: rgba(80, 80, 80, 0.7);
+    width: 100%;
+    height: 400px;
+    padding: 20px;
+  }
+
+  /* Add a card effect for articles */
+  .card {
+    color: white;
+    padding: 20px;
+    margin-top: 20px;
+    text-align: center;
+    backdrop-filter: blur(15px) saturate(98%);
+    -webkit-backdrop-filter: blur(15px) saturate(98%);
+    background-color: rgba(17, 25, 40, 0.39);
+    border-radius: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+
+    height: 510px;
+  }
+
+  .card h2 {
+    text-align: center;
+    padding-bottom: 20px;
+  }
+
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .vertical-menu {
+    width: 100%;
+    height: 510px;
+    overflow-y: auto;
+    padding: 5px;
+    margin-top: 20px;
+    border-radius: 5px;
+    backdrop-filter: blur(15px) saturate(98%);
+    -webkit-backdrop-filter: blur(15px) saturate(98%);
+    background-color: rgba(236, 236, 236, 0.39);
+    border: 1px solid rgba(255, 255, 255, 0.125);
+  }
+
+  .vertical-menu a {
+    background-color: #eee;
+    color: black;
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    margin: 15px;
+    border-radius: 5px;
+  }
+
+  .vertical-menu a:hover {
+    background: linear-gradient(to right, #9999ff 0%, #ff99ff 100%);
+  }
+
+  .vertical-menu a.active {
+    background: linear-gradient(to right, #6600cc 0%, #cc00cc 100%);
+    color: white;
+  }
+
+  .slabel {
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  hr {
+    height: 2px;
+    border: 1px solid rgba(160, 160, 160, 0.521);
+  }
+
+  .edits {
+    padding: 20px;
+  }
+
+  .range-input {
+    width: 80%;
+    margin: 20px 0 2px;
+  }
+
+  /* Style the footer */
+  .footer {
+    background-color: #0f0f0fcc;
+    color: white;
+    padding: 11px;
+    margin-top: 7px;
+    text-align: center;
+  }
+
+  /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+  @media screen and (max-width: 800px) {
+
+    .leftcolumn,
+    .rightcolumn {
+      width: 100%;
+      padding: 0;
+    }
+
+    .leftcolumn .vertical-menu {
+      height: 190px;
+    }
+
+    .button {
+      font-size: 11px;
+      color: #000000;
+      margin: 2px;
+      padding: 7px 11px 7px 11px;
+      margin-right: 9px;
+    }
+
+  }
+
+  /* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+  @media screen and (max-width: 400px) {
+    .topnav a {
+      float: none;
+      width: 100%;
+    }
+  }
+</style>
+
+<!-- ------------------------------------------------------------- -->
+
+<body>
+  <div class="topnav">
+    <a href="#" style="font-family: arial;">Digital Image Processing</a>
+    <div class="navright">
+
+      <a class="button" id="download" download><i class="fa fa-download"></i>&nbsp; Download</a>
+
+      <label for="file-import" class="button"
+        style="background: linear-gradient(to right, #ff99ff 0%, #ffffcc 100%);"><i class="fa fa-folder"></i>&nbsp;
+        Import</label>
+      <input type="file" name="image" id="file-import" style="display: none">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="leftcolumn">
+      <div class="vertical-menu container-fluid">
+        <div class="edits">
+          <h4 style="margin-bottom: 20px;">Negative</h4>
+          <input type="checkbox" id="negative">
+          <label class="slabel" for="negative">On</label>
+        </div>
+        <hr>
+        <div class="edits">
+          <h4>Contrast stretch</h4>
+          <label class="slabel" for="CSscale">Scale</label>
+          <input type="range" id="CSscale" min="0" max="5" step="0.1" value="0" class="range-input">
+        </div>
+        <hr>
+        <div class="edits">
+          <h4>Image Brightening</h4>
+          <label class="slabel" for="IBconst">Const</label>
+          <input type="range" id="IBconst" min="-254" max="254" step="1" value="0" class="range-input">
+        </div>
+        <hr>
+        <div class="edits">
+          <h4>Image Scaling</h4>
+          <label for="xscale" class="slabel">X</label>
+          <input type="range" id="xscale" min="0.1" max="2" step="0.01" value="1" class="range-input scale">
+          <br>
+          <label for="yscale" class="slabel">Y</label>
+          <input type="range" id="yscale" min="0.1" max="2" step="0.01" value="1" class="range-input scale">
+        </div>
+        <hr>
+        <div class="edits">
+          <h4>Image Rotation</h4>
+          <label for="angleRotate" class="slabel">Angle</label>
+          <input type="range" id="angleRotate" min="0" max="360" step="1" value="0" class="range-input">
+        </div>
+        <hr>
+        <div class="edits">
+          <h4>Image Translation</h4>
+          <label for="xtrans" class="slabel">X</label>
+          <input type="range" id="xtrans" min="-100" max="100" value="0" class="range-input translation">
+          <br>
+          <label for="ytrans" class="slabel">Y</label>
+          <input type="range" id="ytrans" min="-100" max="100" value="0" class="range-input translation">
+        </div>
+        <hr>
+        <div class="edits">
+          <h4>Smoothen/Sharpen</h4>
+          <label for="levelSS" class="slabel">Level</label>
+          <input type="range" id="levelSS" min="-1" max="1" value="0" step="0.1" class="range-input">
+        </div>
+        <hr>
+        <div class="edits">
+          <h4>Perspective Projection I</h4>
+          <label for="anglePP" class="slabel">Angle</label>
+          <input type="range" id="anglePP" min="0" max="360" value="0" step="1" class="range-input">
+        </div>
+        <hr>
+        <div class="edits">
+          <h4>Perspective Projection II</h4>
+          <label for="topPP2" class="slabel">Top</label>
+          <input type="range" id="topPP2" min="0" max="360" value="0" step="1" class="range-input PP2">
+          <label for="leftPP2" class="slabel">Left</label>
+          <input type="range" id="leftPP2" min="0" max="360" value="0" step="1" class="range-input PP2">
+        </div>
+        <!-- <hr>
+        <div class="edits">Link 9</div>
+        <div class="edits">Link 10</div>
+        <div class="edits">Link 11</div>
+        <div class="edits">Link 12</div>
+        <div class="edits">Link 13</div>
+        <div class="edits">Link 14</div>
+        <div class="edits">Link 15</div> -->
+      </div>
+    </div>
+
+    <div class="rightcolumn">
+      <div class="card align-center">
+        <img style="height: 470px; display: none" src="" id="preview" class="rounded">
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p style="font-size: 14px;">Copyright ©&nbsp;Akira-Annisa-Reinald Group 2021 </p>
+  </div>
+
+
+  <script type="text/javascript" src="{{ url_for("static", filename="index.js") }}"></script>
+
+</body>
+
+</html>
